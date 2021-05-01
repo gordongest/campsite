@@ -39,23 +39,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var chalk_1 = __importDefault(require("chalk"));
-var clear_1 = __importDefault(require("clear"));
-var figlet_1 = __importDefault(require("figlet"));
-var getSites_1 = __importDefault(require("./getSites"));
-clear_1.default();
-console.log(chalk_1.default.green(figlet_1.default.textSync('CampSite', { horizontalLayout: 'full' })));
-var run = function () { return __awaiter(void 0, void 0, void 0, function () {
+var fs_1 = __importDefault(require("fs"));
+var moment_1 = __importDefault(require("moment"));
+var clui_1 = require("clui");
+var inquirer_1 = __importDefault(require("./inquirer"));
+var siteChecker_1 = require("./siteChecker");
+var spinner = new clui_1.Spinner('Checking available sites, please wait...');
+var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var info, data, startDate, endDate, sites, err_1;
     return __generator(this, function (_a) {
-        try {
-            getSites_1.default();
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, inquirer_1.default()];
+            case 1:
+                info = _a.sent();
+                spinner.start();
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, JSON.parse(fs_1.default.readFileSync(info.filepath, 'utf-8'))];
+            case 3:
+                data = _a.sent();
+                startDate = moment_1.default(data.search.startDate).format('dddd, MMMM Do YYYY');
+                endDate = moment_1.default(data.search.endDate).format('dddd, MMMM Do YYYY');
+                sites = siteChecker_1.availableSites(data, info.gap);
+                if (sites.length) {
+                    spinner.stop();
+                    console.log("Available sites for dates " + startDate + " to " + endDate + ":");
+                    sites.forEach(function (site) {
+                        console.log(site);
+                    });
+                    console.log("Thanks for using CampSite, " + info.username + "! Enjoy your trip!");
+                }
+                else {
+                    spinner.stop();
+                    console.log('Sorry, we were unable to find any sites for that search. Try some other dates!');
+                }
+                return [3 /*break*/, 5];
+            case 4:
+                err_1 = _a.sent();
+                spinner.stop();
+                console.log(err_1.message);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
-        catch (err) {
-            console.log('Sorry, I ran into a problem. Have a look at this:');
-            console.log(err.message);
-        }
-        return [2 /*return*/];
     });
 }); };
-run();
-//# sourceMappingURL=index.js.map
+exports.default = getSites;
+//# sourceMappingURL=getSites.js.map

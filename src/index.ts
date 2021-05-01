@@ -2,7 +2,7 @@ import fs from 'fs';
 import chalk from 'chalk';
 import clear from 'clear';
 import figlet from 'figlet';
-import askQuestions from './inquirer';
+import getSites from './getSites'
 
 clear();
 
@@ -11,13 +11,12 @@ console.log(
 );
 
 const run = async (): Promise<void> => {
-  const credentials = await askQuestions();
-  // console.log(`Hi, ${credentials.username}!`);
-  return credentials;
+  try {
+    getSites();
+  } catch(err) {
+    console.log('Sorry, I ran into a problem. Have a look at this:');
+    console.log(err.message)
+  }
 }
 
-// possible roadmap:
-  // add filepath query to askQuestions
-  // return filepath from askQuestions
-  // pass filepath to campSiteData()
-  // generate conf object
+run();

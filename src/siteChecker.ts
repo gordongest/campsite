@@ -27,7 +27,7 @@ interface MomentObject {
 
 // **** MAIN FUNCTION ****
 
-const availableSites = (data: JSONdata, minGap: number = 1): string[] => {
+export const availableSites = (data: JSONdata, minGap: number = 1): string[] => {
   return data.campsites.reduce((siteList: string[], site): string[] => {
     const searchQuery = data.search;
 
@@ -55,7 +55,7 @@ const availableSites = (data: JSONdata, minGap: number = 1): string[] => {
 // **** HELPER FUNCTIONS ****
 
 // converts date strings to timestamps
-const parseDateStrings = (data: DateObject): MomentObject => {
+export const parseDateStrings = (data: DateObject): MomentObject => {
   return {
     startDate: moment(data.startDate),
     endDate: moment(data.endDate),
@@ -63,7 +63,7 @@ const parseDateStrings = (data: DateObject): MomentObject => {
 };
 
 // checks for reservation or gap conflicts
-const conflicts = (
+export const conflicts = (
   reservations: DateObject[] | MomentObject[],
   search: DateObject | MomentObject,
   minGap: number
@@ -94,12 +94,12 @@ const conflicts = (
   return false;
 };
 
-const sites = availableSites(sampleData, 1);
-console.log(
-  `Available sites for dates ${sampleData.search.startDate} to ${sampleData.search.endDate}:`
-);
-sites.forEach((site) => {
-  console.log(site);
-});
+// const sites = availableSites(sampleData, 1);
+// console.log(
+//   `Available sites for dates ${sampleData.search.startDate} to ${sampleData.search.endDate}:`
+// );
+// sites.forEach((site) => {
+//   console.log(site);
+// });
 
-module.exports = { availableSites, parseDateStrings, conflicts };
+// export default { availableSites, parseDateStrings, conflicts };

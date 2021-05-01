@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.conflicts = exports.parseDateStrings = exports.availableSites = void 0;
 var moment_1 = __importDefault(require("moment"));
-var test_case_json_1 = __importDefault(require("./test-case.json"));
 // **** MAIN FUNCTION ****
 var availableSites = function (data, minGap) {
     if (minGap === void 0) { minGap = 1; }
@@ -20,13 +20,14 @@ var availableSites = function (data, minGap) {
             return siteList;
         }
         // if there are no overlap or gap conflicts, add it to the list
-        if (!conflicts(reservations, searchQuery, minGap)) {
+        if (!exports.conflicts(reservations, searchQuery, minGap)) {
             siteList.push(site.name);
             return siteList;
         }
         return siteList;
     }, []);
 };
+exports.availableSites = availableSites;
 // **** HELPER FUNCTIONS ****
 // converts date strings to timestamps
 var parseDateStrings = function (data) {
@@ -35,12 +36,13 @@ var parseDateStrings = function (data) {
         endDate: moment_1.default(data.endDate),
     };
 };
+exports.parseDateStrings = parseDateStrings;
 // checks for reservation or gap conflicts
 var conflicts = function (reservations, search, minGap) {
-    search = parseDateStrings(search);
+    search = exports.parseDateStrings(search);
     for (var _i = 0, reservations_1 = reservations; _i < reservations_1.length; _i++) {
         var reservation = reservations_1[_i];
-        reservation = parseDateStrings(reservation);
+        reservation = exports.parseDateStrings(reservation);
         // check for conflicts
         if (
         // if startDate falls within a current res
@@ -59,10 +61,13 @@ var conflicts = function (reservations, search, minGap) {
     // if none of the above, no conflict
     return false;
 };
-var sites = availableSites(test_case_json_1.default, 1);
-console.log("Available sites for dates " + test_case_json_1.default.search.startDate + " to " + test_case_json_1.default.search.endDate + ":");
-sites.forEach(function (site) {
-    console.log(site);
-});
-module.exports = { availableSites: availableSites, parseDateStrings: parseDateStrings, conflicts: conflicts };
+exports.conflicts = conflicts;
+// const sites = availableSites(sampleData, 1);
+// console.log(
+//   `Available sites for dates ${sampleData.search.startDate} to ${sampleData.search.endDate}:`
+// );
+// sites.forEach((site) => {
+//   console.log(site);
+// });
+// export default { availableSites, parseDateStrings, conflicts };
 //# sourceMappingURL=siteChecker.js.map

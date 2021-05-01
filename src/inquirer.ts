@@ -1,7 +1,12 @@
 import inquirer from 'inquirer';
 import PromptUI from 'inquirer/lib/ui/prompt';
 
-const askQuestions = (): Promise<any> & { ui: PromptUI }=> {
+interface infoObject {
+  name: string;
+  filepath: string;
+}
+
+const askQuestions = ()  => {
   const questions = [
     {
       name: 'username',
@@ -15,6 +20,18 @@ const askQuestions = (): Promise<any> & { ui: PromptUI }=> {
         }
       }
     },
+    {
+      name: 'filepath',
+      type: 'input',
+      message: 'Please enter the path for your JSON file:',
+      validate: function(value: string): boolean | string {
+        if (value.length) {
+          return true;
+        } else {
+          return 'Whoops! Looks like I missed your filepath. Mind entering it again?';
+        }
+      }
+    }
   ];
 
   return inquirer.prompt(questions);

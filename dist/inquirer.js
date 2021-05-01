@@ -19,6 +19,19 @@ var askQuestions = function () {
                 }
             }
         },
+        {
+            name: 'filepath',
+            type: 'input',
+            message: 'Please enter the path for your JSON file:',
+            validate: function (value) {
+                if (value.length) {
+                    return true;
+                }
+                else {
+                    return 'Whoops! Looks like I missed your filepath. Mind entering it again?';
+                }
+            }
+        }
     ];
     return inquirer_1.default.prompt(questions);
 };
