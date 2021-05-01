@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
 var moment_1 = __importDefault(require("moment"));
+var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
 var inquirer_1 = __importDefault(require("./inquirer"));
 var siteChecker_1 = require("./siteChecker");
@@ -64,15 +65,15 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
                 sites = siteChecker_1.availableSites(data, info.gap);
                 if (sites.length) {
                     spinner.stop();
-                    console.log("Available sites for dates " + startDate + " to " + endDate + ":");
+                    console.log(chalk_1.default.yellow.bold("Available sites for " + startDate + " to " + endDate + ":"));
                     sites.forEach(function (site) {
-                        console.log(site);
+                        console.log(chalk_1.default.bold(site));
                     });
-                    console.log("Thanks for using CampSite, " + info.username + "! Enjoy your trip!");
+                    console.log(chalk_1.default.green.bold("Thanks for using CampSite, " + info.username + "! Enjoy your trip!"));
                 }
                 else {
                     spinner.stop();
-                    console.log('Sorry, we were unable to find any sites for that search. Try some other dates!');
+                    console.log(chalk_1.default.yellow.bold('Sorry, we were unable to find any sites for that search. Try some other dates!'));
                 }
                 return [3 /*break*/, 5];
             case 4:
