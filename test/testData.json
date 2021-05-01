@@ -1,0 +1,37 @@
+{
+  "search": {
+    "startDate": null,
+    "endDate": null
+  },
+  "campsites": [
+    {
+      "id": 1,
+      "name": "Mountain Lodge"
+    },
+    {
+      "id": 2,
+      "name": "Log Cabin"
+    },
+    {
+      "id": 3,
+      "name": "Old Shack"
+    }
+  ],
+  "reservations": [
+    {
+      "campsiteId": 1,
+      "startDate": "2021-04-28",
+      "endDate": "2021-05-01"
+    },
+    {
+      "campsiteId": 2,
+      "startDate": "2021-05-06",
+      "endDate": "2021-05-10"
+    },
+    {
+      "campsiteId": 3,
+      "startDate": "2021-05-01",
+      "endDate": "2021-05-03"
+    }
+  ]
+}
