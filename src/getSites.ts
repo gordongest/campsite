@@ -1,7 +1,7 @@
 import fs from 'fs';
 import moment from 'moment';
 import chalk from 'chalk';
-import CLI, { Spinner } from 'clui';
+import { Spinner } from 'clui';
 import askQuestions from './inquirer';
 import { availableSites } from './siteChecker'
 

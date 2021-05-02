@@ -1,8 +1,6 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import fileTreeSelectionPrompt from 'inquirer-file-tree-selection-prompt';
-import PromptUI from 'inquirer/lib/ui/prompt';
-import Rx from 'rxjs';
 
 interface InfoObject {
   username: string;

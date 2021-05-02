@@ -4,7 +4,7 @@
 
 ## Running CampSite
 
-**CampSite** is easy to run! Open a new Terminal process, navigate to the directory where your JSON file is located, and run `npx campsite`. After installation, enter your name and choose the the desired file using the selection tool. After a few moments, **CampSite** will let you know what's available.
+**CampSite** is easy to run! Open a new Terminal process, navigate to the directory where your JSON file is located, and run `npx campsite`. After installation, enter your name and choose the desired file using the selection tool. After a few moments, **CampSite** will let you know what's available.
 
 ***
 

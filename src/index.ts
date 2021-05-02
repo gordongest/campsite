@@ -2,7 +2,7 @@
 
 import boxen from 'boxen';
 import clear from 'clear';
-import chalk, { bold } from 'chalk';
+import chalk from 'chalk';
 import figlet from 'figlet';
 import getSites from './getSites';
 
