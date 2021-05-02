@@ -61,7 +61,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
             case 3:
                 data = _a.sent();
                 startDate = moment_1.default(data.search.startDate).format('dddd, MMMM Do YYYY');
-                endDate = moment_1.default(data.search.endDate).format('dddd, MMMM Do YYYY');
+                endDate = moment_1.default(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
                 sites = siteChecker_1.availableSites(data);
                 if (sites.length) {
                     spinner.stop();
