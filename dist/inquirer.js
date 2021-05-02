@@ -43,13 +43,13 @@ var inquirer_1 = __importDefault(require("inquirer"));
 var chalk_1 = __importDefault(require("chalk"));
 var inquirer_file_tree_selection_prompt_1 = __importDefault(require("inquirer-file-tree-selection-prompt"));
 var askQuestions = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var questions, user, path;
+    var user, path;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 inquirer_1.default.registerPrompt('file-tree-selection', inquirer_file_tree_selection_prompt_1.default);
-                questions = [
-                    {
+                return [4 /*yield*/, inquirer_1.default
+                        .prompt({
                         name: 'username',
                         type: 'input',
                         message: "Hey there! What's your name?",
@@ -61,46 +61,8 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
                                 return "Sorry, I didn't catch that. Could you repeat your name?";
                             }
                         },
-                    },
-                    // {
-                    //   name: 'filepath',
-                    //   type: 'input',
-                    //   message: 'Please enter the path to your JSON file:',
-                    //   validate: function (value: string): boolean | string {
-                    //     if (value.length) {
-                    //       return true;
-                    //     } else {
-                    //       return 'Whoops! Looks like I missed your filepath. Mind entering it again?';
-                    //     }
-                    //   },
-                    // },
-                    {
-                        name: 'filepath',
-                        type: 'file-tree-selection',
-                        message: "Please select a JSON file:",
-                        validate: function (value) {
-                            if (value.length) {
-                                return true;
-                            }
-                            else {
-                                return 'Whoops! Looks like I missed your filepath. Mind trying again?';
-                            }
-                        },
-                    },
-                ];
-                return [4 /*yield*/, inquirer_1.default.prompt({
-                        name: 'username',
-                        type: 'input',
-                        message: "Hey there! What's your name?",
-                        validate: function (value) {
-                            if (value.length) {
-                                return true;
-                            }
-                            else {
-                                return "Sorry, I didn't catch that. Could you repeat your name?";
-                            }
-                        },
-                    }).then(function (answers) {
+                    })
+                        .then(function (answers) {
                         console.info(chalk_1.default.green('•'), chalk_1.default.bold("Nice to meet you, " + answers.username + "!"));
                         return answers;
                     })];

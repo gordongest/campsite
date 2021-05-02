@@ -45,19 +45,24 @@ var clear_1 = __importDefault(require("clear"));
 var chalk_1 = __importDefault(require("chalk"));
 var figlet_1 = __importDefault(require("figlet"));
 var getSites_1 = __importDefault(require("./getSites"));
-clear_1.default();
-console.log(chalk_1.default.green(figlet_1.default.textSync('CampSite', { horizontalLayout: 'full' })));
+var options = {
+    padding: 1,
+    margin: 1,
+    borderStyle: 'round',
+};
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         try {
             getSites_1.default();
         }
         catch (err) {
-            console.log('Sorry, I ran into a problem. Have a look at this:');
+            console.log('Sorry, I ran into a problem. Have a look here:');
             console.log(err.message);
         }
         return [2 /*return*/];
     });
 }); };
-boxen_1.default(run(), { padding: 1, borderStyle: 'bold', borderColor: 'cyan' });
+clear_1.default();
+console.log(chalk_1.default.yellow(boxen_1.default(chalk_1.default.green(figlet_1.default.textSync('CampSite', { horizontalLayout: 'full' })), options)));
+run();
 //# sourceMappingURL=index.js.map
