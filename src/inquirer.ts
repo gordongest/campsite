@@ -4,12 +4,12 @@ import fileTreeSelectionPrompt from 'inquirer-file-tree-selection-prompt';
 import PromptUI from 'inquirer/lib/ui/prompt';
 import Rx from 'rxjs';
 
-interface infoObject {
-  name: string;
+interface InfoObject {
+  username: string;
   filepath: string;
 }
 
-const askQuestions = async () => {
+const askQuestions = async (): Promise<InfoObject> => {
   inquirer.registerPrompt('file-tree-selection', fileTreeSelectionPrompt);
 
   const user = await inquirer

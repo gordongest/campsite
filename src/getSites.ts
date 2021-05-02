@@ -16,7 +16,7 @@ const getSites = async (): Promise<void> => {
     const data = await JSON.parse(fs.readFileSync(info.filepath, 'utf-8'));
 
     const startDate = moment(data.search.startDate).format('dddd, MMMM Do YYYY');
-    const endDate = moment(data.search.endDate).format('dddd, MMMM Do YYYY');
+    const endDate = moment(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
 
     const sites = availableSites(data);
 
