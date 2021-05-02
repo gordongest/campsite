@@ -61,11 +61,7 @@ export const parseDateStrings = (data: DateObject): MomentObject => {
 };
 
 // checks for reservation or gap conflicts
-export const conflicts = (
-  reservations: DateObject[],
-  search: DateObject,
-  minGap: number
-): boolean =>
+export const conflicts = (reservations: DateObject[], search: DateObject, minGap: number): boolean =>
   reservations.some((reservation) => {
     const parsedSearch = parseDateStrings(search);
     const parsedReservation = parseDateStrings(reservation);
