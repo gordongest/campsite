@@ -15,9 +15,9 @@ export class SiteChecker {
       const searchQuery = data.search;
 
       // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-      const reservations = data.reservations.filter((reservation) => {
-        return reservation.campsiteId === site.id;
-      });
+      const reservations = data.reservations.filter((reservation) =>
+        reservation.campsiteId === site.id
+      );
 
       if (!reservations.length) {
         siteList.push(site.name);
