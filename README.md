@@ -10,7 +10,7 @@
 
 ### Approach to problem solving
 
-At the highest level, CampSite uses the following approach:
+At the highest level, CampSite matches up campsites with their reservations and lets the user know whether the requested dates are available. It does so using the following approach:
 
 - Take in the submitted data.
 - Look through the campsites.
