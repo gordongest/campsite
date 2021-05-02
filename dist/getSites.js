@@ -44,7 +44,7 @@ var moment_1 = __importDefault(require("moment"));
 var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
 var inquirer_1 = __importDefault(require("./inquirer"));
-var siteChecker_1 = require("./siteChecker");
+var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
     var info, data, startDate, endDate, sites, err_1;
@@ -62,7 +62,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
                 data = _a.sent();
                 startDate = moment_1.default(data.search.startDate).format('dddd, MMMM Do YYYY');
                 endDate = moment_1.default(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
-                sites = siteChecker_1.availableSites(data);
+                sites = new SiteChecker_1.SiteChecker(data).run();
                 if (sites.length) {
                     spinner.stop();
                     console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate + " to " + endDate + ":"));

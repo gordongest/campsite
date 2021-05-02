@@ -45,7 +45,7 @@ var clear_1 = __importDefault(require("clear"));
 var chalk_1 = __importDefault(require("chalk"));
 var figlet_1 = __importDefault(require("figlet"));
 var getSites_1 = __importDefault(require("./getSites"));
-var options = {
+var boxenOptions = {
     padding: 1,
     margin: 1,
     borderStyle: 'round',
@@ -63,6 +63,6 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     });
 }); };
 clear_1.default();
-console.log(chalk_1.default.yellow(boxen_1.default(chalk_1.default.green(figlet_1.default.textSync('CampSite', { horizontalLayout: 'full' })), options)));
+console.log(chalk_1.default.yellow(boxen_1.default(chalk_1.default.green(figlet_1.default.textSync('CampSite', { horizontalLayout: 'full' })), boxenOptions)));
 run();
 //# sourceMappingURL=index.js.map

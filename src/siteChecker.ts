@@ -1,51 +1,70 @@
-import moment from 'moment';
-import { JSONdata, DateObject, MomentObject } from './interfaces'
+const moment = require('moment');
+import { JSONdata, DateObject, MomentObject } from './interfaces';
 
+export class SiteChecker {
+  _data: JSONdata;
+  _minGap: number;
 
-export const availableSites = (data: JSONdata, minGap: number = 1): string[] =>
-  data.campsites.reduce((siteList: string[], site): string[] => {
-    const searchQuery = data.search;
+  constructor(data: JSONdata, minGap: number = 1) {
+    this._data = data;
+    this._minGap = minGap;
+  }
 
-    // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-    const reservations = data.reservations.filter((reservation) => {
-      return reservation.campsiteId === site.id;
+  availableSites(data: JSONdata, minGap: number): string[] {
+    return data.campsites.reduce((siteList: string[], site): string[] => {
+      const searchQuery = data.search;
+
+      // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
+      const reservations = data.reservations.filter((reservation) => {
+        return reservation.campsiteId === site.id;
+      });
+
+      if (!reservations.length) {
+        siteList.push(site.name);
+        return siteList;
+      }
+
+      if (!this.conflicts(reservations, searchQuery, minGap)) {
+        siteList.push(site.name);
+        return siteList;
+      }
+
+      return siteList;
+    }, []);
+  }
+
+  parseDateStrings(data: DateObject): MomentObject {
+    return {
+      startDate: moment(data.startDate),
+      endDate: moment(data.endDate),
+    };
+  }
+
+  conflicts(
+    reservations: DateObject[],
+    search: DateObject,
+    minGap: number
+  ): boolean {
+    return reservations.some((reservation) => {
+      const parsedSearch = this.parseDateStrings(search);
+      const parsedReservation = this.parseDateStrings(reservation);
+
+      return (
+        // if search dates fall within an existing res
+        (parsedSearch.startDate >= parsedReservation.startDate &&
+          parsedSearch.startDate <= parsedReservation.endDate) ||
+        (parsedSearch.endDate >= parsedReservation.startDate &&
+          parsedSearch.endDate <= parsedReservation.endDate) ||
+        // if search dates are not adjacent day or outside minGap
+        parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
+          minGap + 1 ||
+        parsedReservation.startDate.diff(parsedSearch.endDate, 'days') ===
+          minGap + 1
+      );
     });
+  }
 
-    if (!reservations.length) {
-      siteList.push(site.name);
-      return siteList;
-    }
-
-    if (!conflicts(reservations, searchQuery, minGap)) {
-      siteList.push(site.name);
-      return siteList;
-    }
-
-    return siteList;
-  }, []);
-
-export const parseDateStrings = (data: DateObject): MomentObject => {
-  return {
-    startDate: moment(data.startDate),
-    endDate: moment(data.endDate),
-  };
-};
-
-export const conflicts = (reservations: DateObject[], search: DateObject, minGap: number): boolean =>
-  reservations.some((reservation) => {
-    const parsedSearch = parseDateStrings(search);
-    const parsedReservation = parseDateStrings(reservation);
-
-    return (
-      // if search dates fall within an existing res
-      (parsedSearch.startDate >= parsedReservation.startDate &&
-        parsedSearch.startDate <= parsedReservation.endDate) ||
-      (parsedSearch.endDate >= parsedReservation.startDate &&
-        parsedSearch.endDate <= parsedReservation.endDate) ||
-      // if search dates are not adjacent day or outside minGap
-      parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
-        minGap + 1 ||
-      parsedReservation.startDate.diff(parsedSearch.endDate, 'days') ===
-        minGap + 1
-    );
-  });
+  run() {
+    return this.availableSites(this._data, this._minGap);
+  }
+}

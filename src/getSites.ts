@@ -3,7 +3,7 @@ import moment from 'moment';
 import chalk from 'chalk';
 import { Spinner } from 'clui';
 import askQuestions from './inquirer';
-import { availableSites } from './siteChecker'
+import { SiteChecker } from './SiteChecker';
 
 const spinner = new Spinner('Checking available sites, please wait...');
 
@@ -18,7 +18,7 @@ const getSites = async (): Promise<void> => {
     const startDate = moment(data.search.startDate).format('dddd, MMMM Do YYYY');
     const endDate = moment(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
 
-    const sites = availableSites(data);
+    const sites = new SiteChecker(data).run();
 
     if (sites.length) {
       spinner.stop();

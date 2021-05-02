@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import getSites from './getSites';
 
-const options = {
+const boxenOptions = {
   padding: 1,
   margin: 1,
   borderStyle: 'round',
@@ -27,7 +27,7 @@ console.log(
   chalk.yellow(
     boxen(
       chalk.green(figlet.textSync('CampSite', { horizontalLayout: 'full' })),
-      options
+      boxenOptions
     )
   )
 );

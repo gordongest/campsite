@@ -1,8 +1,4 @@
-const {
-  availableSites,
-  parseDateStrings,
-  conflicts,
-} = require('../dist/siteChecker');
+const { availableSites, parseDateStrings, conflicts } = require('../dist/siteCheckerTestMethods');
 const moment = require('moment');
 const testData = require('./testData.json');
 
