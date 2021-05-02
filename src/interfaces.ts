@@ -20,4 +20,9 @@ interface MomentObject {
   endDate: moment.Moment;
 }
 
-export { JSONdata, SiteObject, DateObject, MomentObject };
+interface InfoObject {
+  username: string;
+  filepath: string;
+}
+
+export { JSONdata, SiteObject, DateObject, MomentObject, InfoObject };
