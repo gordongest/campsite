@@ -26,11 +26,8 @@ interface MomentObject {
 
 // **** MAIN FUNCTION ****
 
-export const availableSites = (
-  data: JSONdata,
-  minGap: number = 1
-): string[] => {
-  return data.campsites.reduce((siteList: string[], site): string[] => {
+export const availableSites = (data: JSONdata, minGap: number = 1): string[] =>
+  data.campsites.reduce((siteList: string[], site): string[] => {
     const searchQuery = data.search;
 
     // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
@@ -52,7 +49,6 @@ export const availableSites = (
 
     return siteList;
   }, []);
-};
 
 // **** HELPER FUNCTIONS ****
 
@@ -69,8 +65,8 @@ export const conflicts = (
   reservations: DateObject[],
   search: DateObject,
   minGap: number
-): boolean => {
-  return reservations.some((reservation) => {
+): boolean =>
+  reservations.some((reservation) => {
     const parsedSearch = parseDateStrings(search);
     const parsedReservation = parseDateStrings(reservation);
 
@@ -90,4 +86,3 @@ export const conflicts = (
         minGap + 1
     );
   });
-};
