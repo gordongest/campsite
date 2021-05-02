@@ -12,11 +12,10 @@
 
 At the highest level, CampSite uses the following approach:
 
-- Iterate through the campsites
+- Look through the campsites
 - Associate each campsite with its reservations
-- Compare the search dates to existing reservations and check whether the dates overlap or do not leave a sufficient gap
-- Return sites that are either not reserved or which don't have any conflicts
+- Compare the given search dates to existing reservations and check whether the dates overlap or do not leave a sufficient gap
+- Return campsites that are either not reserved or which don't have any conflicts
 
-In building this program, I chose to take a largely functional approach using implicit data return and higher-order functions.
+In building the core function, I chose to take a largely functional approach using implicit data return and higher-order functions when possible.
 
-The first task was to parse the incoming data and associate `reservations` with `campsites`. The structure of the data resembles a set of SQL tables, so I make use of `array.prototype.filter()` in order to approximate an SQL `LEFT JOIN` to match them up.
