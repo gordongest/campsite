@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -39,8 +40,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var chalk_1 = __importDefault(require("chalk"));
+var boxen_1 = __importDefault(require("boxen"));
 var clear_1 = __importDefault(require("clear"));
+var chalk_1 = __importDefault(require("chalk"));
 var figlet_1 = __importDefault(require("figlet"));
 var getSites_1 = __importDefault(require("./getSites"));
 clear_1.default();
@@ -57,5 +59,5 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
         return [2 /*return*/];
     });
 }); };
-run();
+boxen_1.default(run(), { padding: 1, borderStyle: 'bold', borderColor: 'cyan' });
 //# sourceMappingURL=index.js.map

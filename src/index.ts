@@ -1,6 +1,8 @@
-import fs from 'fs';
-import chalk from 'chalk';
+#!/usr/bin/env node
+
+import boxen from 'boxen';
 import clear from 'clear';
+import chalk, { bold } from 'chalk';
 import figlet from 'figlet';
 import getSites from './getSites'
 
@@ -19,4 +21,4 @@ const run = async (): Promise<void> => {
   }
 }
 
-run();
+boxen(run(), { padding: 1, borderStyle: 'bold', borderColor: 'cyan' });

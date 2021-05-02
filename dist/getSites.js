@@ -62,10 +62,10 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
                 data = _a.sent();
                 startDate = moment_1.default(data.search.startDate).format('dddd, MMMM Do YYYY');
                 endDate = moment_1.default(data.search.endDate).format('dddd, MMMM Do YYYY');
-                sites = siteChecker_1.availableSites(data, info.gap);
+                sites = siteChecker_1.availableSites(data);
                 if (sites.length) {
                     spinner.stop();
-                    console.log(chalk_1.default.yellow.bold("Available sites for " + startDate + " to " + endDate + ":"));
+                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate + " to " + endDate + ":"));
                     sites.forEach(function (site) {
                         console.log(chalk_1.default.bold(site));
                     });
@@ -79,7 +79,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
             case 4:
                 err_1 = _a.sent();
                 spinner.stop();
-                console.log(err_1.message);
+                console.log(chalk_1.default.red.bold('Oops! I encountered a problem: '), chalk_1.default.white(err_1.message));
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }

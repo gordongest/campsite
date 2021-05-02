@@ -29,7 +29,7 @@ var availableSites = function (data, minGap) {
 };
 exports.availableSites = availableSites;
 // **** HELPER FUNCTIONS ****
-// converts date strings to timestamps
+// coerces date strings to timestamps
 var parseDateStrings = function (data) {
     return {
         startDate: moment_1.default(data.startDate),
@@ -39,35 +39,24 @@ var parseDateStrings = function (data) {
 exports.parseDateStrings = parseDateStrings;
 // checks for reservation or gap conflicts
 var conflicts = function (reservations, search, minGap) {
-    search = exports.parseDateStrings(search);
-    for (var _i = 0, reservations_1 = reservations; _i < reservations_1.length; _i++) {
-        var reservation = reservations_1[_i];
-        reservation = exports.parseDateStrings(reservation);
+    return reservations.some(function (reservation) {
+        var parsedSearch = exports.parseDateStrings(search);
+        var parsedReservation = exports.parseDateStrings(reservation);
         // check for conflicts
-        if (
-        // if startDate falls within a current res
-        (search.startDate >= reservation.startDate &&
-            search.startDate <= reservation.endDate) ||
-            // if endDate falls within a current res
-            (search.endDate >= reservation.startDate &&
-                search.endDate <= reservation.endDate) ||
-            // if search start is not day following or outside minGap of res end
-            search.startDate.diff(reservation.endDate, 'days') === minGap + 1 ||
-            // if search end is not day prior to or outside minGap of res start
-            reservation.startDate.diff(search.endDate, 'days') === minGap + 1) {
-            return true;
-        }
-    }
-    // if none of the above, no conflict
-    return false;
+        return (
+        // if startDate falls within an existing res
+        (parsedSearch.startDate >= parsedReservation.startDate &&
+            parsedSearch.startDate <= parsedReservation.endDate) ||
+            // if endDate falls within an existing res
+            (parsedSearch.endDate >= parsedReservation.startDate &&
+                parsedSearch.endDate <= parsedReservation.endDate) ||
+            // if startDate is not day following or outside minGap of existing res
+            parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
+                minGap + 1 ||
+            // if endDate is not day prior to or outside minGap of existing res
+            parsedReservation.startDate.diff(parsedSearch.endDate, 'days') ===
+                minGap + 1);
+    });
 };
 exports.conflicts = conflicts;
-// const sites = availableSites(sampleData, 1);
-// console.log(
-//   `Available sites for dates ${sampleData.search.startDate} to ${sampleData.search.endDate}:`
-// );
-// sites.forEach((site) => {
-//   console.log(site);
-// });
-// export default { availableSites, parseDateStrings, conflicts };
 //# sourceMappingURL=siteChecker.js.map

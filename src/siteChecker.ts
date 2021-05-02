@@ -1,5 +1,4 @@
 import moment from 'moment';
-import sampleData from './test-case.json';
 
 // **** INTERFACES ****
 
@@ -27,7 +26,10 @@ interface MomentObject {
 
 // **** MAIN FUNCTION ****
 
-export const availableSites = (data: JSONdata, minGap: number = 1): string[] => {
+export const availableSites = (
+  data: JSONdata,
+  minGap: number = 1
+): string[] => {
   return data.campsites.reduce((siteList: string[], site): string[] => {
     const searchQuery = data.search;
 
@@ -54,7 +56,7 @@ export const availableSites = (data: JSONdata, minGap: number = 1): string[] => 
 
 // **** HELPER FUNCTIONS ****
 
-// converts date strings to timestamps
+// coerces date strings to timestamps
 export const parseDateStrings = (data: DateObject): MomentObject => {
   return {
     startDate: moment(data.startDate),
@@ -64,42 +66,28 @@ export const parseDateStrings = (data: DateObject): MomentObject => {
 
 // checks for reservation or gap conflicts
 export const conflicts = (
-  reservations: DateObject[] | MomentObject[],
-  search: DateObject | MomentObject,
+  reservations: DateObject[],
+  search: DateObject,
   minGap: number
 ): boolean => {
-  search = parseDateStrings(search as DateObject);
-
-  for (let reservation of reservations) {
-    reservation = parseDateStrings(reservation as DateObject);
+  return reservations.some((reservation) => {
+    const parsedSearch = parseDateStrings(search);
+    const parsedReservation = parseDateStrings(reservation);
 
     // check for conflicts
-    if (
-      // if startDate falls within a current res
-      (search.startDate >= reservation.startDate &&
-        search.startDate <= reservation.endDate) ||
-      // if endDate falls within a current res
-      (search.endDate >= reservation.startDate &&
-        search.endDate <= reservation.endDate) ||
-      // if search start is not day following or outside minGap of res end
-      search.startDate.diff(reservation.endDate, 'days') === minGap + 1 ||
-      // if search end is not day prior to or outside minGap of res start
-      reservation.startDate.diff(search.endDate, 'days') === minGap + 1
-    ) {
-      return true;
-    }
-  }
-
-  // if none of the above, no conflict
-  return false;
+    return (
+      // if startDate falls within an existing res
+      (parsedSearch.startDate >= parsedReservation.startDate &&
+        parsedSearch.startDate <= parsedReservation.endDate) ||
+      // if endDate falls within an existing res
+      (parsedSearch.endDate >= parsedReservation.startDate &&
+        parsedSearch.endDate <= parsedReservation.endDate) ||
+      // if startDate is not day following or outside minGap of existing res
+      parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
+        minGap + 1 ||
+      // if endDate is not day prior to or outside minGap of existing res
+      parsedReservation.startDate.diff(parsedSearch.endDate, 'days') ===
+        minGap + 1
+    );
+  });
 };
-
-// const sites = availableSites(sampleData, 1);
-// console.log(
-//   `Available sites for dates ${sampleData.search.startDate} to ${sampleData.search.endDate}:`
-// );
-// sites.forEach((site) => {
-//   console.log(site);
-// });
-
-// export default { availableSites, parseDateStrings, conflicts };

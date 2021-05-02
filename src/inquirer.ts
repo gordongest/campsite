@@ -1,40 +1,52 @@
 import inquirer from 'inquirer';
+import chalk from 'chalk';
+import fileTreeSelectionPrompt from 'inquirer-file-tree-selection-prompt';
 import PromptUI from 'inquirer/lib/ui/prompt';
+import Rx from 'rxjs';
 
 interface infoObject {
   name: string;
   filepath: string;
 }
 
-const askQuestions = ()  => {
-  const questions = [
-    {
+const askQuestions = async () => {
+  inquirer.registerPrompt('file-tree-selection', fileTreeSelectionPrompt);
+
+  const user = await inquirer
+    .prompt({
       name: 'username',
       type: 'input',
-      message: 'Hey there! What\'s your name?',
-      validate: function(value: string): boolean | string {
+      message: "Hey there! What's your name?",
+      validate: function (value: string): boolean | string {
         if (value.length) {
           return true;
         } else {
-          return 'Sorry, I didn\'t catch that. Could you repeat your name?'
+          return "Sorry, I didn't catch that. Could you repeat your name?";
         }
+      },
+    })
+    .then((answers) => {
+      console.info(
+        chalk.green('•'),
+        chalk.bold(`Nice to meet you, ${answers.username}!`)
+      );
+      return answers;
+    });
+
+  const path = await inquirer.prompt({
+    name: 'filepath',
+    type: 'file-tree-selection',
+    message: `Please select a JSON file:`,
+    validate: function (value: string): boolean | string {
+      if (value.length) {
+        return true;
+      } else {
+        return 'Whoops! Looks like I missed your filepath. Mind trying again?';
       }
     },
-    {
-      name: 'filepath',
-      type: 'input',
-      message: 'Please enter the path for your JSON file:',
-      validate: function(value: string): boolean | string {
-        if (value.length) {
-          return true;
-        } else {
-          return 'Whoops! Looks like I missed your filepath. Mind entering it again?';
-        }
-      }
-    }
-  ];
+  });
 
-  return inquirer.prompt(questions);
-}
+  return { username: user.username, filepath: path.filepath };
+};
 
 export default askQuestions;
