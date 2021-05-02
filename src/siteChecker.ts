@@ -1,4 +1,4 @@
-const moment = require('moment');
+import moment from 'moment';
 import { JSONdata, DateObject, MomentObject } from './interfaces';
 
 export class SiteChecker {
