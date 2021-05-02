@@ -27,7 +27,7 @@ While considering the task, I made several assumptions:
 - The dates specified in the provided JSON file refer to nights, rather than days. This is evidenced by a reservation that both begins *and* ends on June 1, 2018.
 - Because of that, searching for dates that are immediately adjacent to existing reservations is acceptable.
 - There is no restriction on the minimum length of a reservation.
-- Potential visitors may have an open-ended itinerary; they may wish to search for only a start date **or** only an end date, or no specific dates at all.
+- Users may have an open-ended itinerary; they may wish to search for only a start date **or** only an end date, or no specific dates at all.
 - Therefore, the user should only be prevented from viewing campsites that definitively could *not* accommodate their itinerary. In these cases, the application could be structured as to present the user with a calendar of available dates for the site they choose to view.
 
 ### Extensibility
