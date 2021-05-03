@@ -16,9 +16,7 @@ var SiteChecker = /** @class */ (function () {
         return data.campsites.reduce(function (siteList, site) {
             var searchQuery = data.search;
             // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-            var reservations = data.reservations.filter(function (reservation) {
-                return reservation.campsiteId === site.id;
-            });
+            var reservations = data.reservations.filter(function (reservation) { return reservation.campsiteId === site.id; });
             if (!reservations.length) {
                 siteList.push(site.name);
                 return siteList;
@@ -47,8 +45,9 @@ var SiteChecker = /** @class */ (function () {
                 parsedSearch.startDate <= parsedReservation.endDate) ||
                 (parsedSearch.endDate >= parsedReservation.startDate &&
                     parsedSearch.endDate <= parsedReservation.endDate) ||
-                (parsedReservation.startDate >= parsedSearch.startDate &&
-                    parsedReservation.endDate <= parsedSearch.endDate) ||
+                // if search dates overlap an entire res
+                (parsedSearch.startDate <= parsedReservation.startDate &&
+                    parsedSearch.endDate >= parsedReservation.endDate) ||
                 // if search dates are not adjacent day or outside minGap
                 parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
                     minGap + 1 ||
