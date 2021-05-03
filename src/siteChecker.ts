@@ -56,8 +56,8 @@ export class SiteChecker {
         (parsedSearch.endDate >= parsedReservation.startDate &&
           parsedSearch.endDate <= parsedReservation.endDate) ||
         // if search dates overlap an entire res
-        (parsedReservation.startDate >= parsedSearch.startDate &&
-          parsedReservation.endDate <= parsedSearch.endDate) ||
+        (parsedSearch.startDate <= parsedReservation.startDate &&
+          parsedSearch.endDate >= parsedReservation.endDate) ||
         // if search dates are not adjacent day or outside minGap
         parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
           minGap + 1 ||
