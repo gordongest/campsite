@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import boxen from 'boxen';
 import clear from 'clear';
 import chalk from 'chalk';
+import boxen from 'boxen';
 import figlet from 'figlet';
 import getSites from './getSites';
 

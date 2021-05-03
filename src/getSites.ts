@@ -2,7 +2,7 @@ import fs from 'fs';
 import moment from 'moment';
 import chalk from 'chalk';
 import { Spinner } from 'clui';
-import askQuestions from './inquirer';
+import { askQuestions } from './inquirer';
 import { SiteChecker } from './SiteChecker';
 
 const spinner = new Spinner('Checking available sites, please wait...');

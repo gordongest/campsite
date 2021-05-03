@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import fileTreeSelectionPrompt from 'inquirer-file-tree-selection-prompt';
 import { InfoObject } from './interfaces';
 
-const askQuestions = async (): Promise<InfoObject> => {
+export const askQuestions = async (): Promise<InfoObject> => {
   inquirer.registerPrompt('file-tree-selection', fileTreeSelectionPrompt);
 
   const user = await inquirer
@@ -42,5 +42,3 @@ const askQuestions = async (): Promise<InfoObject> => {
 
   return { username: user.username, filepath: path.filepath };
 };
-
-export default askQuestions;
