@@ -55,6 +55,8 @@ export class SiteChecker {
           parsedSearch.startDate <= parsedReservation.endDate) ||
         (parsedSearch.endDate >= parsedReservation.startDate &&
           parsedSearch.endDate <= parsedReservation.endDate) ||
+        (parsedReservation.startDate >= parsedSearch.startDate &&
+          parsedReservation.endDate <= parsedSearch.endDate) ||
         // if search dates are not adjacent day or outside minGap
         parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
           minGap + 1 ||

@@ -51,6 +51,13 @@ describe('Site Checker', () => {
         expect(SiteChecker.conflicts(actualReservations, actualSearch, 1)).toEqual(true);
       });
 
+      it('identifies a search that overlaps an entire reservation', () => {
+        const actualSearch = mockSearch('2021-05-03', '2021-05-11');
+        const actualReservations = mockReservations(testData.reservations, 1);
+
+        expect(SiteChecker.conflicts(actualReservations, actualSearch, 1)).toEqual(true);
+      });
+
       it('identifies a gap conflict at search start', () => {
         const actualSearch = mockSearch('2021-05-03', '2021-05-05');
         const actualReservations = mockReservations(testData.reservations, 0);
