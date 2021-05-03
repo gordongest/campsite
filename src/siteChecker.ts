@@ -15,8 +15,8 @@ export class SiteChecker {
       const searchQuery = data.search;
 
       // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-      const reservations = data.reservations.filter((reservation) =>
-        reservation.campsiteId === site.id
+      const reservations = data.reservations.filter(
+        (reservation) => reservation.campsiteId === site.id
       );
 
       if (!reservations.length) {
@@ -55,6 +55,7 @@ export class SiteChecker {
           parsedSearch.startDate <= parsedReservation.endDate) ||
         (parsedSearch.endDate >= parsedReservation.startDate &&
           parsedSearch.endDate <= parsedReservation.endDate) ||
+        // if search dates overlap an entire res
         (parsedReservation.startDate >= parsedSearch.startDate &&
           parsedReservation.endDate <= parsedSearch.endDate) ||
         // if search dates are not adjacent day or outside minGap
