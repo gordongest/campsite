@@ -10,7 +10,7 @@
 
 ### Approach to problem solving
 
-At the highest level, CampSite matches up campsites with their reservations and lets the user know whether the requested dates are available. It does so using the following approach:
+At the highest level, **CampSite** matches campsites with their reservations and lets the user know which sites are available for the requested dates. It does so using the following approach:
 
 - Take in the submitted data.
 - Look through the campsites.
@@ -32,7 +32,7 @@ The program is built around a few assumptions drawn from the supplied data:
 
 ### Extensibility
 
-Although this program defaults to check for single-night gaps, it also declares an optional argument to allow for other minimum gaps. This should allow for some extensibility with additional development, and receives several tests to check for basic functionality.
+Although **CampSite** defaults to check for single-night gaps, it also includes an optional argument to allow for other minimum gaps. This should allow for some extensibility with additional development, and receives several tests to check for basic functionality.
 
 ### Testing
 
