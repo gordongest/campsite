@@ -1,28 +1,26 @@
-interface JSONdata {
+export interface JSONdata {
   search: DateObject;
   campsites: SiteObject[];
   reservations: DateObject[];
 }
 
-interface SiteObject {
+export interface SiteObject {
   id: number;
   name: string;
 }
 
-interface DateObject {
+export interface DateObject {
   campsiteId?: number;
   startDate: string;
   endDate: string;
 }
 
-interface MomentObject {
+export interface MomentObject {
   startDate: moment.Moment;
   endDate: moment.Moment;
 }
 
-interface InfoObject {
+export interface InfoObject {
   username: string;
   filepath: string;
 }
-
-export { JSONdata, SiteObject, DateObject, MomentObject, InfoObject };
