@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.askQuestions = void 0;
 var inquirer_1 = __importDefault(require("inquirer"));
 var chalk_1 = __importDefault(require("chalk"));
 var inquirer_file_tree_selection_prompt_1 = __importDefault(require("inquirer-file-tree-selection-prompt"));
@@ -87,5 +88,5 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
-exports.default = askQuestions;
+exports.askQuestions = askQuestions;
 //# sourceMappingURL=inquirer.js.map

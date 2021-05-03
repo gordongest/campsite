@@ -1,7 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SiteChecker = void 0;
-var moment = require('moment');
+var moment_1 = __importDefault(require("moment"));
 var SiteChecker = /** @class */ (function () {
     function SiteChecker(data, minGap) {
         if (minGap === void 0) { minGap = 1; }
@@ -29,8 +32,8 @@ var SiteChecker = /** @class */ (function () {
     };
     SiteChecker.prototype.parseDateStrings = function (data) {
         return {
-            startDate: moment(data.startDate),
-            endDate: moment(data.endDate),
+            startDate: moment_1.default(data.startDate),
+            endDate: moment_1.default(data.endDate),
         };
     };
     SiteChecker.prototype.conflicts = function (reservations, search, minGap) {
@@ -44,6 +47,8 @@ var SiteChecker = /** @class */ (function () {
                 parsedSearch.startDate <= parsedReservation.endDate) ||
                 (parsedSearch.endDate >= parsedReservation.startDate &&
                     parsedSearch.endDate <= parsedReservation.endDate) ||
+                (parsedReservation.startDate >= parsedSearch.startDate &&
+                    parsedReservation.endDate <= parsedSearch.endDate) ||
                 // if search dates are not adjacent day or outside minGap
                 parsedSearch.startDate.diff(parsedReservation.endDate, 'days') ===
                     minGap + 1 ||

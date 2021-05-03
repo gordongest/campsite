@@ -43,14 +43,14 @@ var fs_1 = __importDefault(require("fs"));
 var moment_1 = __importDefault(require("moment"));
 var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
-var inquirer_1 = __importDefault(require("./inquirer"));
+var inquirer_1 = require("./inquirer");
 var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
     var info, data, startDate, endDate, sites, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirer_1.default()];
+            case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
             case 1:
                 info = _a.sent();
                 spinner.start();
