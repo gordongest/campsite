@@ -11,7 +11,7 @@ const boxenOptions = {
   margin: 1,
   borderStyle: 'round',
   float: 'center',
-  align: 'center'
+  align: 'center',
 };
 
 const run = async (): Promise<void> => {

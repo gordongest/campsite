@@ -15,9 +15,6 @@ const getSites = async (): Promise<void> => {
   try {
     const data = await JSON.parse(fs.readFileSync(info.filepath, 'utf-8'));
 
-    // const startDate = moment(data.search.startDate).format('dddd, MMMM Do YYYY');
-    // const endDate = moment(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
-
     const searchDates = parseDateStrings(data.search);
 
     const sites = new SiteChecker(data, searchDates, parseDateStrings).run();
