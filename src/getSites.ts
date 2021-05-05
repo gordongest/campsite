@@ -1,8 +1,8 @@
 import fs from 'fs';
-import moment from 'moment';
 import chalk from 'chalk';
 import { Spinner } from 'clui';
 import { askQuestions } from './inquirer';
+import { parseDateStrings } from './ParseDateStrings';
 import { SiteChecker } from './SiteChecker';
 
 const spinner = new Spinner('Checking available sites, please wait...');
@@ -15,16 +15,23 @@ const getSites = async (): Promise<void> => {
   try {
     const data = await JSON.parse(fs.readFileSync(info.filepath, 'utf-8'));
 
-    const startDate = moment(data.search.startDate).format('dddd, MMMM Do YYYY');
-    const endDate = moment(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
+    // const startDate = moment(data.search.startDate).format('dddd, MMMM Do YYYY');
+    // const endDate = moment(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
 
-    const sites = new SiteChecker(data).run();
+    const searchDates = parseDateStrings(data.search);
+
+    const sites = new SiteChecker(data, searchDates, parseDateStrings).run();
 
     if (sites.length) {
       spinner.stop();
       console.log(
         chalk.yellow.bold(
-          `Here are the available sites for ${startDate} to ${endDate}:`
+          `Here are the available sites for
+            ${searchDates.startDate
+            .format('dddd, MMMM Do YYYY')} to
+            ${searchDates.endDate
+            .add(1, 'day')
+            .format('dddd, MMMM Do YYYY')}:`
         )
       );
       sites.forEach((site) => {
@@ -43,12 +50,13 @@ const getSites = async (): Promise<void> => {
         )
       );
     }
-  } catch(err) {
+  } catch (err) {
     spinner.stop();
     console.log(
-      chalk.red.bold('Oops! I encountered a problem: '), chalk.white(err.message)
+      chalk.red.bold('Oops! I encountered a problem: '),
+      chalk.white(err.message)
     );
   }
-}
+};
 
 export default getSites;
