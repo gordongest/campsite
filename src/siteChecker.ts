@@ -8,7 +8,7 @@ export class SiteChecker {
     private _minGap: number = 1
   ) {}
 
-  availableSites(
+  private availableSites(
     data: JSONdata,
     searchDates: MomentObject,
     minGap: number
@@ -33,11 +33,11 @@ export class SiteChecker {
     }, []);
   }
 
-  parseDateStrings(dates: DateObject): MomentObject {
+  private parseDateStrings(dates: DateObject): MomentObject {
     return this._dateParser(dates);
   }
 
-  conflicts(
+  private conflicts(
     reservations: DateObject[],
     searchDates: MomentObject,
     minGap: number
