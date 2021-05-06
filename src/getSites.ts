@@ -2,7 +2,7 @@ import fs from 'fs';
 import chalk from 'chalk';
 import { Spinner } from 'clui';
 import { askQuestions } from './inquirer';
-import { parseDateStrings } from './ParseDateStrings';
+import { parseDateStrings } from './parseDateStrings';
 import { SiteChecker } from './SiteChecker';
 
 const spinner = new Spinner('Checking available sites, please wait...');
