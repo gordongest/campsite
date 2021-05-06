@@ -1,40 +1,52 @@
 const moment = require('moment');
 const testData = require('./testData.json');
 const { mockData, mockSearch, mockReservations } = require('./mocks');
-const SiteCheckerClass = require('../dist/SiteChecker');
+const parseDateStrings = require('../src/parseDateStrings.ts');
+const SiteCheckerClass = require('../src/SiteChecker.ts');
+const SiteChecker = SiteCheckerClass.SiteChecker;
 
-const SiteChecker = SiteCheckerClass.SiteChecker.prototype;
 
 describe('Site Checker', () => {
+
   describe('inner methods', () => {
+
     describe('date parser', () => {
+      // beforeEach(() => {
+      //   const siteChecker = new SiteChecker(null, null, parseDateStrings);
+      //   console.log(siteChecker);
+      // });
+
       it('returns an object', () => {
+        const siteChecker = new SiteChecker(null, null, parseDateStrings);
         const actualSearch = mockSearch('2021-04-30', '2021-05-02');
 
-        expect(SiteChecker.parseDateStrings(actualSearch)).toBeInstanceOf(Object);
+        expect(siteChecker._dateParser.parseDateStrings(actualSearch)).toBeInstanceOf(Object);
       });
 
       it('returns an object with the desired keys', () => {
+        const siteChecker = new SiteChecker(null, null, parseDateStrings);
         const actualSearch = mockSearch('2021-04-30', '2021-05-02');
 
-        expect(SiteChecker.parseDateStrings(actualSearch)).toHaveProperty('startDate');
-        expect(SiteChecker.parseDateStrings(actualSearch)).toHaveProperty('endDate');
+        expect(siteChecker._dateParser.parseDateStrings(actualSearch)).toHaveProperty('startDate');
+        expect(siteChecker._dateParser.parseDateStrings(actualSearch)).toHaveProperty('endDate');
       });
 
       it('parses date strings correctly', () => {
+        const siteChecker = new SiteChecker(null, null, parseDateStrings);
         const actualSearch = mockSearch('2021-04-30', '2021-05-02');
 
-        expect(SiteChecker.parseDateStrings(actualSearch).startDate).toBeInstanceOf(moment);
-        expect(SiteChecker.parseDateStrings(actualSearch).endDate).toBeInstanceOf(moment);
+        expect(siteChecker._dateParser.parseDateStrings(actualSearch).startDate).toBeInstanceOf(moment);
+        expect(siteChecker._dateParser.parseDateStrings(actualSearch).endDate).toBeInstanceOf(moment);
       });
     });
 
     describe('conflict checker', () => {
       it('identifies an overlap conflict at search start', () => {
+        const siteChecker = new SiteChecker(null, null, parseDateStrings);
         const actualSearch = mockSearch('2021-04-30', '2021-05-02');
         const actualReservations = mockReservations(testData.reservations, 0);
 
-        expect(SiteChecker.conflicts(actualReservations, actualSearch, 1)).toEqual(true);
+        expect(siteChecker.conflicts(actualReservations, actualSearch, 1)).toEqual(true);
       });
 
       it('identifies an overlap conflict at search end', () => {

@@ -2,10 +2,10 @@ import { JSONdata, DateObject, MomentObject } from './interfaces';
 
 export class SiteChecker {
   constructor(
-    public _data: JSONdata,
-    public _searchDates: MomentObject,
-    public _dateParser: (dates: DateObject) => MomentObject,
-    public _minGap: number = 1
+    private _data: JSONdata,
+    private _searchDates: MomentObject,
+    private _dateParser: (dates: DateObject) => MomentObject,
+    private _minGap: number = 1
   ) {}
 
   availableSites(

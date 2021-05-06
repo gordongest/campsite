@@ -23,12 +23,7 @@ const getSites = async (): Promise<void> => {
       spinner.stop();
       console.log(
         chalk.yellow.bold(
-          `Here are the available sites for
-            ${searchDates.startDate
-            .format('dddd, MMMM Do YYYY')} to
-            ${searchDates.endDate
-            .add(1, 'day')
-            .format('dddd, MMMM Do YYYY')}:`
+          `Here are the available sites for ${searchDates.startDate.format('dddd, MMMM Do YYYY')} to ${searchDates.endDate.add(1, 'day').format('dddd, MMMM Do YYYY')}:`
         )
       );
       sites.forEach((site) => {

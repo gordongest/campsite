@@ -64,10 +64,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
                 sites = new SiteChecker_1.SiteChecker(data, searchDates, parseDateStrings_1.parseDateStrings).run();
                 if (sites.length) {
                     spinner.stop();
-                    console.log(chalk_1.default.yellow.bold("Here are the available sites for\n            " + searchDates.startDate
-                        .format('dddd, MMMM Do YYYY') + " to\n            " + searchDates.endDate
-                        .add(1, 'day')
-                        .format('dddd, MMMM Do YYYY') + ":"));
+                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + searchDates.startDate.format('dddd, MMMM Do YYYY') + " to " + searchDates.endDate.add(1, 'day').format('dddd, MMMM Do YYYY') + ":"));
                     sites.forEach(function (site) {
                         console.log(chalk_1.default.bold(site));
                     });
