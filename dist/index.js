@@ -50,7 +50,7 @@ var boxenOptions = {
     margin: 1,
     borderStyle: 'round',
     float: 'center',
-    align: 'center'
+    align: 'center',
 };
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

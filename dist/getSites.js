@@ -40,14 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
-var moment_1 = __importDefault(require("moment"));
 var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
 var inquirer_1 = require("./inquirer");
+var parseDateStrings_1 = require("./parseDateStrings");
 var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var info, data, startDate, endDate, sites, err_1;
+    var info, data, searchDates, sites, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
@@ -60,12 +60,14 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
                 return [4 /*yield*/, JSON.parse(fs_1.default.readFileSync(info.filepath, 'utf-8'))];
             case 3:
                 data = _a.sent();
-                startDate = moment_1.default(data.search.startDate).format('dddd, MMMM Do YYYY');
-                endDate = moment_1.default(data.search.endDate).add(1, 'day').format('dddd, MMMM Do YYYY');
-                sites = new SiteChecker_1.SiteChecker(data).run();
+                searchDates = parseDateStrings_1.parseDateStrings(data.search);
+                sites = new SiteChecker_1.SiteChecker(data, searchDates, parseDateStrings_1.parseDateStrings).run();
                 if (sites.length) {
                     spinner.stop();
-                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate + " to " + endDate + ":"));
+                    console.log(chalk_1.default.yellow.bold("Here are the available sites for\n            " + searchDates.startDate
+                        .format('dddd, MMMM Do YYYY') + " to\n            " + searchDates.endDate
+                        .add(1, 'day')
+                        .format('dddd, MMMM Do YYYY') + ":"));
                     sites.forEach(function (site) {
                         console.log(chalk_1.default.bold(site));
                     });
