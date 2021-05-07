@@ -16,9 +16,10 @@ const getSites = async (): Promise<void> => {
     const data = await JSON.parse(fs.readFileSync(info.filepath, 'utf-8'));
 
     const searchDates = parseDateStrings(data.search);
-    const { startDate, endDate } = searchDates;
 
     const sites = new SiteChecker(data, searchDates, parseDateStrings).run();
+
+    const { startDate, endDate } = searchDates;
 
     if (sites.length) {
       spinner.stop();
@@ -27,9 +28,9 @@ const getSites = async (): Promise<void> => {
           `Here are the available sites for ${startDate.format('dddd, MMMM Do YYYY')} to ${endDate.add(1, 'day').format('dddd, MMMM Do YYYY')}:`
         )
       );
-      sites.forEach((site) => {
-        console.log(chalk.bold(site));
-      });
+      sites.forEach((site) =>
+        console.log(chalk.bold(site))
+      );
       console.log(
         chalk.green.bold(
           `Thanks for using CampSite, ${info.username}! Enjoy your trip!`
