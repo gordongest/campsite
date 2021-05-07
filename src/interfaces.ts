@@ -1,9 +1,3 @@
-export interface JSONdata {
-  search: DateObject;
-  campsites: SiteObject[];
-  reservations: DateObject[];
-}
-
 export interface SiteObject {
   id: number;
   name: string;

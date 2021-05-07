@@ -1,30 +1,32 @@
-import { JSONdata, DateObject, MomentObject } from './interfaces';
+import { DateObject, MomentObject, SiteObject } from './interfaces';
 
 export class SiteChecker {
   constructor(
-    private _data: JSONdata,
+    private _campsites: SiteObject[],
+    private _reservations: DateObject[],
     private _searchDates: MomentObject,
     private _dateParser: (dates: DateObject) => MomentObject,
     private _minGap: number = 1
   ) {}
 
   private availableSites(
-    data: JSONdata,
+    campsites: SiteObject[],
+    reservations: DateObject[],
     searchDates: MomentObject,
     minGap: number
   ): string[] {
-    return data.campsites.reduce((siteList: string[], site): string[] => {
+    return campsites.reduce((siteList: string[], site): string[] => {
       // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-      const reservations = data.reservations.filter((reservation) =>
+      const siteReservations = reservations.filter((reservation) =>
         reservation.campsiteId === site.id
       );
 
-      if (!reservations.length) {
+      if (!siteReservations.length) {
         siteList.push(site.name);
         return siteList;
       }
 
-      if (!this.conflicts(reservations, searchDates, minGap)) {
+      if (!this.conflicts(siteReservations, searchDates, minGap)) {
         siteList.push(site.name);
         return siteList;
       }
@@ -67,6 +69,6 @@ export class SiteChecker {
   }
 
   run() {
-    return this.availableSites(this._data, this._searchDates, this._minGap);
+    return this.availableSites(this._campsites, this._reservations, this._searchDates, this._minGap);
   }
 }

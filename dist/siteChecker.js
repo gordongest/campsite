@@ -2,25 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SiteChecker = void 0;
 var SiteChecker = /** @class */ (function () {
-    function SiteChecker(_data, _searchDates, _dateParser, _minGap) {
+    function SiteChecker(_campsites, _reservations, _searchDates, _dateParser, _minGap) {
         if (_minGap === void 0) { _minGap = 1; }
-        this._data = _data;
+        this._campsites = _campsites;
+        this._reservations = _reservations;
         this._searchDates = _searchDates;
         this._dateParser = _dateParser;
         this._minGap = _minGap;
     }
-    SiteChecker.prototype.availableSites = function (data, searchDates, minGap) {
+    SiteChecker.prototype.availableSites = function (campsites, reservations, searchDates, minGap) {
         var _this = this;
-        return data.campsites.reduce(function (siteList, site) {
+        return campsites.reduce(function (siteList, site) {
             // pseudo LEFT JOIN reservations ON reservations.campsiteId = campsites.id;
-            var reservations = data.reservations.filter(function (reservation) {
+            var siteReservations = reservations.filter(function (reservation) {
                 return reservation.campsiteId === site.id;
             });
-            if (!reservations.length) {
+            if (!siteReservations.length) {
                 siteList.push(site.name);
                 return siteList;
             }
-            if (!_this.conflicts(reservations, searchDates, minGap)) {
+            if (!_this.conflicts(siteReservations, searchDates, minGap)) {
                 siteList.push(site.name);
                 return siteList;
             }
@@ -47,7 +48,7 @@ var SiteChecker = /** @class */ (function () {
         });
     };
     SiteChecker.prototype.run = function () {
-        return this.availableSites(this._data, this._searchDates, this._minGap);
+        return this.availableSites(this._campsites, this._reservations, this._searchDates, this._minGap);
     };
     return SiteChecker;
 }());

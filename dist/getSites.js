@@ -41,45 +41,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSites = void 0;
 var fs_1 = __importDefault(require("fs"));
-var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
 var inquirer_1 = require("./inquirer");
 var parseDateStrings_1 = require("./parseDateStrings");
+var listSites_1 = require("./listSites");
+var errLog_1 = require("./errLog");
 var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var info, data, searchDates, sites, startDate, endDate, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, username, filepath, _b, search, campsites, reservations, searchDates, sites, err_1;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
             case 1:
-                info = _a.sent();
+                _a = _c.sent(), username = _a.username, filepath = _a.filepath;
                 spinner.start();
-                _a.label = 2;
+                _c.label = 2;
             case 2:
-                _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, JSON.parse(fs_1.default.readFileSync(info.filepath, 'utf-8'))];
+                _c.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, JSON.parse(fs_1.default.readFileSync(filepath, 'utf-8'))];
             case 3:
-                data = _a.sent();
-                searchDates = parseDateStrings_1.parseDateStrings(data.search);
-                sites = new SiteChecker_1.SiteChecker(data, searchDates, parseDateStrings_1.parseDateStrings).run();
-                startDate = searchDates.startDate, endDate = searchDates.endDate;
+                _b = _c.sent(), search = _b.search, campsites = _b.campsites, reservations = _b.reservations;
+                searchDates = parseDateStrings_1.parseDateStrings(search);
+                sites = new SiteChecker_1.SiteChecker(campsites, reservations, searchDates, parseDateStrings_1.parseDateStrings).run();
                 spinner.stop();
-                if (sites.length) {
-                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate.format('dddd, MMMM Do YYYY') + " to " + endDate.add(1, 'day').format('dddd, MMMM Do YYYY') + ":"));
-                    sites.forEach(function (site) {
-                        return console.log(chalk_1.default.bold(site));
-                    });
-                    console.log(chalk_1.default.green.bold("Thanks for using CampSite, " + info.username + "! Enjoy your trip!"));
-                }
-                else {
-                    console.log(chalk_1.default.yellow.bold('Sorry, we were unable to find any sites for that search. Try some other dates!'));
-                }
+                listSites_1.listSites(sites, searchDates, username);
                 return [3 /*break*/, 5];
             case 4:
-                err_1 = _a.sent();
+                err_1 = _c.sent();
                 spinner.stop();
-                console.log(chalk_1.default.red.bold('Oops! I encountered a problem: '), chalk_1.default.white(err_1.message));
+                errLog_1.errLog(err_1);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
