@@ -3,9 +3,8 @@ import { Spinner } from 'clui';
 import { JSONData } from './interfaces';
 import { askQuestions } from './inquirer';
 import { parseDateStrings } from './parseDateStrings';
-import { listSites } from './listSites';
-import { errLog } from './errLog';
 import { SiteChecker } from './SiteChecker';
+import { listSites, logErr } from './listSites';
 
 const spinner = new Spinner('Checking available sites, please wait...');
 
@@ -16,13 +15,17 @@ export const getSites = async (): Promise<void> => {
 
   try {
     const { search, campsites, reservations }: JSONData = await JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+
     const searchDates = parseDateStrings(search);
+
     const sites = new SiteChecker(campsites, reservations, searchDates, parseDateStrings).run();
 
     spinner.stop();
+
     listSites(sites, searchDates, username);
   } catch (err) {
     spinner.stop();
-    errLog(err);
+
+    logErr(err);
   }
 };
