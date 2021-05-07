@@ -43,22 +43,25 @@ export class SiteChecker {
     minGap: number
   ): boolean {
     return reservations.some((reservation) => {
-      const parsedReservation = this.parseDateStrings(reservation);
+      const {
+        startDate: searchStart,
+        endDate: searchEnd
+      } = searchDates;
+
+      const {
+        startDate: resStart,
+        endDate: resEnd
+      } = this.parseDateStrings(reservation);
 
       return (
         // if search dates fall within an existing res
-        (searchDates.startDate >= parsedReservation.startDate &&
-          searchDates.startDate <= parsedReservation.endDate) ||
-        (searchDates.endDate >= parsedReservation.startDate &&
-          searchDates.endDate <= parsedReservation.endDate) ||
+        (searchStart >= resStart && searchStart <= resEnd) ||
+        (searchEnd >= resStart && searchEnd <= resEnd) ||
         // if search dates overlap an entire res
-        (searchDates.startDate <= parsedReservation.startDate &&
-          searchDates.endDate >= parsedReservation.endDate) ||
+        (searchStart <= resStart && searchEnd >= resEnd) ||
         // if search dates are not adjacent day or outside minGap
-        searchDates.startDate.diff(parsedReservation.endDate, 'days') ===
-          minGap + 1 ||
-        parsedReservation.startDate.diff(searchDates.endDate, 'days') ===
-          minGap + 1
+        searchStart.diff(resEnd, 'days') === minGap + 1 ||
+        resStart.diff(searchEnd, 'days') === minGap + 1
       );
     });
   }

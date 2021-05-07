@@ -16,6 +16,7 @@ const getSites = async (): Promise<void> => {
     const data = await JSON.parse(fs.readFileSync(info.filepath, 'utf-8'));
 
     const searchDates = parseDateStrings(data.search);
+    const { startDate, endDate } = searchDates;
 
     const sites = new SiteChecker(data, searchDates, parseDateStrings).run();
 
@@ -23,7 +24,7 @@ const getSites = async (): Promise<void> => {
       spinner.stop();
       console.log(
         chalk.yellow.bold(
-          `Here are the available sites for ${searchDates.startDate.format('dddd, MMMM Do YYYY')} to ${searchDates.endDate.add(1, 'day').format('dddd, MMMM Do YYYY')}:`
+          `Here are the available sites for ${startDate.format('dddd, MMMM Do YYYY')} to ${endDate.add(1, 'day').format('dddd, MMMM Do YYYY')}:`
         )
       );
       sites.forEach((site) => {

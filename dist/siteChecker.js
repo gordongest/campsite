@@ -33,21 +33,17 @@ var SiteChecker = /** @class */ (function () {
     SiteChecker.prototype.conflicts = function (reservations, searchDates, minGap) {
         var _this = this;
         return reservations.some(function (reservation) {
-            var parsedReservation = _this.parseDateStrings(reservation);
+            var searchStart = searchDates.startDate, searchEnd = searchDates.endDate;
+            var _a = _this.parseDateStrings(reservation), resStart = _a.startDate, resEnd = _a.endDate;
             return (
             // if search dates fall within an existing res
-            (searchDates.startDate >= parsedReservation.startDate &&
-                searchDates.startDate <= parsedReservation.endDate) ||
-                (searchDates.endDate >= parsedReservation.startDate &&
-                    searchDates.endDate <= parsedReservation.endDate) ||
+            (searchStart >= resStart && searchStart <= resEnd) ||
+                (searchEnd >= resStart && searchEnd <= resEnd) ||
                 // if search dates overlap an entire res
-                (searchDates.startDate <= parsedReservation.startDate &&
-                    searchDates.endDate >= parsedReservation.endDate) ||
+                (searchStart <= resStart && searchEnd >= resEnd) ||
                 // if search dates are not adjacent day or outside minGap
-                searchDates.startDate.diff(parsedReservation.endDate, 'days') ===
-                    minGap + 1 ||
-                parsedReservation.startDate.diff(searchDates.endDate, 'days') ===
-                    minGap + 1);
+                searchStart.diff(resEnd, 'days') === minGap + 1 ||
+                resStart.diff(searchEnd, 'days') === minGap + 1);
         });
     };
     SiteChecker.prototype.run = function () {

@@ -47,7 +47,7 @@ var parseDateStrings_1 = require("./parseDateStrings");
 var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var info, data, searchDates, sites, err_1;
+    var info, data, searchDates, startDate, endDate, sites, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
@@ -61,10 +61,11 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
             case 3:
                 data = _a.sent();
                 searchDates = parseDateStrings_1.parseDateStrings(data.search);
+                startDate = searchDates.startDate, endDate = searchDates.endDate;
                 sites = new SiteChecker_1.SiteChecker(data, searchDates, parseDateStrings_1.parseDateStrings).run();
                 if (sites.length) {
                     spinner.stop();
-                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + searchDates.startDate.format('dddd, MMMM Do YYYY') + " to " + searchDates.endDate.add(1, 'day').format('dddd, MMMM Do YYYY') + ":"));
+                    console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate.format('dddd, MMMM Do YYYY') + " to " + endDate.add(1, 'day').format('dddd, MMMM Do YYYY') + ":"));
                     sites.forEach(function (site) {
                         console.log(chalk_1.default.bold(site));
                     });
