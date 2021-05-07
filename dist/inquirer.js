@@ -64,7 +64,7 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
                         },
                     })
                         .then(function (answers) {
-                        console.info(chalk_1.default.green('•'), chalk_1.default.bold("Nice to meet you, " + answers.username + "!"));
+                        console.log(chalk_1.default.green('•'), chalk_1.default.bold("Nice to meet you, " + answers.username + "!"));
                         return answers;
                     })];
             case 1:

@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSites = void 0;
 var fs_1 = __importDefault(require("fs"));
 var chalk_1 = __importDefault(require("chalk"));
 var clui_1 = require("clui");
@@ -47,7 +48,7 @@ var parseDateStrings_1 = require("./parseDateStrings");
 var SiteChecker_1 = require("./SiteChecker");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var info, data, searchDates, startDate, endDate, sites, err_1;
+    var info, data, searchDates, sites, startDate, endDate, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
@@ -61,18 +62,17 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
             case 3:
                 data = _a.sent();
                 searchDates = parseDateStrings_1.parseDateStrings(data.search);
-                startDate = searchDates.startDate, endDate = searchDates.endDate;
                 sites = new SiteChecker_1.SiteChecker(data, searchDates, parseDateStrings_1.parseDateStrings).run();
+                startDate = searchDates.startDate, endDate = searchDates.endDate;
+                spinner.stop();
                 if (sites.length) {
-                    spinner.stop();
                     console.log(chalk_1.default.yellow.bold("Here are the available sites for " + startDate.format('dddd, MMMM Do YYYY') + " to " + endDate.add(1, 'day').format('dddd, MMMM Do YYYY') + ":"));
                     sites.forEach(function (site) {
-                        console.log(chalk_1.default.bold(site));
+                        return console.log(chalk_1.default.bold(site));
                     });
                     console.log(chalk_1.default.green.bold("Thanks for using CampSite, " + info.username + "! Enjoy your trip!"));
                 }
                 else {
-                    spinner.stop();
                     console.log(chalk_1.default.yellow.bold('Sorry, we were unable to find any sites for that search. Try some other dates!'));
                 }
                 return [3 /*break*/, 5];
@@ -85,5 +85,5 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
         }
     });
 }); };
-exports.default = getSites;
+exports.getSites = getSites;
 //# sourceMappingURL=getSites.js.map

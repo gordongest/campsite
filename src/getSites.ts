@@ -7,7 +7,7 @@ import { SiteChecker } from './SiteChecker';
 
 const spinner = new Spinner('Checking available sites, please wait...');
 
-const getSites = async (): Promise<void> => {
+export const getSites = async (): Promise<void> => {
   const info = await askQuestions();
 
   spinner.start();
@@ -21,8 +21,9 @@ const getSites = async (): Promise<void> => {
 
     const { startDate, endDate } = searchDates;
 
+    spinner.stop();
+
     if (sites.length) {
-      spinner.stop();
       console.log(
         chalk.yellow.bold(
           `Here are the available sites for ${startDate.format('dddd, MMMM Do YYYY')} to ${endDate.add(1, 'day').format('dddd, MMMM Do YYYY')}:`
@@ -37,7 +38,6 @@ const getSites = async (): Promise<void> => {
         )
       );
     } else {
-      spinner.stop();
       console.log(
         chalk.yellow.bold(
           'Sorry, we were unable to find any sites for that search. Try some other dates!'
@@ -52,5 +52,3 @@ const getSites = async (): Promise<void> => {
     );
   }
 };
-
-export default getSites;

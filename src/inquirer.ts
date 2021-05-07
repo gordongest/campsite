@@ -20,7 +20,7 @@ export const askQuestions = async (): Promise<InfoObject> => {
       },
     })
     .then((answers) => {
-      console.info(
+      console.log(
         chalk.green('•'),
         chalk.bold(`Nice to meet you, ${answers.username}!`)
       );
