@@ -63,9 +63,10 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
                             }
                         },
                     })
-                        .then(function (answers) {
-                        console.log(chalk_1.default.green('•'), chalk_1.default.bold("Nice to meet you, " + answers.username + "!"));
-                        return answers;
+                        .then(function (_a) {
+                        var username = _a.username;
+                        console.log(chalk_1.default.green('•'), chalk_1.default.bold("Nice to meet you, " + username + "!"));
+                        return username;
                     })];
             case 1:
                 user = _a.sent();

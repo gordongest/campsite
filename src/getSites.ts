@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { Spinner } from 'clui';
+import { JSONData } from './interfaces';
 import { askQuestions } from './inquirer';
 import { parseDateStrings } from './parseDateStrings';
 import { listSites } from './listSites';
@@ -14,7 +15,7 @@ export const getSites = async (): Promise<void> => {
   spinner.start();
 
   try {
-    const { search, campsites, reservations } = await JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+    const { search, campsites, reservations }: JSONData = await JSON.parse(fs.readFileSync(filepath, 'utf-8'));
     const searchDates = parseDateStrings(search);
     const sites = new SiteChecker(campsites, reservations, searchDates, parseDateStrings).run();
 

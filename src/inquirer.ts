@@ -6,7 +6,7 @@ import { InfoObject } from './interfaces';
 export const askQuestions = async (): Promise<InfoObject> => {
   inquirer.registerPrompt('file-tree-selection', fileTreeSelectionPrompt);
 
-  const user = await inquirer
+  const user: { username: string } = await inquirer
     .prompt({
       name: 'username',
       type: 'input',
@@ -19,15 +19,15 @@ export const askQuestions = async (): Promise<InfoObject> => {
         }
       },
     })
-    .then((answers) => {
+    .then(({ username }) => {
       console.log(
         chalk.green('•'),
-        chalk.bold(`Nice to meet you, ${answers.username}!`)
+        chalk.bold(`Nice to meet you, ${username}!`)
       );
-      return answers;
+      return username;
     });
 
-  const path = await inquirer.prompt({
+  const path: { filepath: string } = await inquirer.prompt({
     name: 'filepath',
     type: 'file-tree-selection',
     message: `Please select a JSON file:`,

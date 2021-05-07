@@ -1,3 +1,9 @@
+export interface JSONData {
+  search: DateObject,
+  campsites: SiteObject[],
+  reservations: DateObject[]
+}
+
 export interface SiteObject {
   id: number;
   name: string;
