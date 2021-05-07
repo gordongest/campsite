@@ -15,4 +15,4 @@ const mockReservations = (data, index) => {
   ];
 };
 
-module.exports = { mockData, mockSearch, mockReservations };
+module.exports = { mockSearch, mockReservations };

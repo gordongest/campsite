@@ -44,9 +44,8 @@ var fs_1 = __importDefault(require("fs"));
 var clui_1 = require("clui");
 var inquirer_1 = require("./inquirer");
 var parseDateStrings_1 = require("./parseDateStrings");
-var listSites_1 = require("./listSites");
-var errLog_1 = require("./errLog");
 var SiteChecker_1 = require("./SiteChecker");
+var listSites_1 = require("./listSites");
 var spinner = new clui_1.Spinner('Checking available sites, please wait...');
 var getSites = function () { return __awaiter(void 0, void 0, void 0, function () {
     var _a, username, filepath, _b, search, campsites, reservations, searchDates, sites, err_1;
@@ -70,7 +69,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
             case 4:
                 err_1 = _c.sent();
                 spinner.stop();
-                errLog_1.errLog(err_1);
+                listSites_1.logErr(err_1);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }

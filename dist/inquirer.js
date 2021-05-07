@@ -44,7 +44,7 @@ var inquirer_1 = __importDefault(require("inquirer"));
 var chalk_1 = __importDefault(require("chalk"));
 var inquirer_file_tree_selection_prompt_1 = __importDefault(require("inquirer-file-tree-selection-prompt"));
 var askQuestions = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var user, path;
+    var username, filepath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -69,7 +69,7 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
                         return username;
                     })];
             case 1:
-                user = _a.sent();
+                username = (_a.sent()).username;
                 return [4 /*yield*/, inquirer_1.default.prompt({
                         name: 'filepath',
                         type: 'file-tree-selection',
@@ -84,8 +84,8 @@ var askQuestions = function () { return __awaiter(void 0, void 0, void 0, functi
                         },
                     })];
             case 2:
-                path = _a.sent();
-                return [2 /*return*/, { username: user.username, filepath: path.filepath }];
+                filepath = (_a.sent()).filepath;
+                return [2 /*return*/, { username: username, filepath: filepath }];
         }
     });
 }); };

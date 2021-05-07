@@ -6,7 +6,7 @@ import { InfoObject } from './interfaces';
 export const askQuestions = async (): Promise<InfoObject> => {
   inquirer.registerPrompt('file-tree-selection', fileTreeSelectionPrompt);
 
-  const user: { username: string } = await inquirer
+  const { username } = await inquirer
     .prompt({
       name: 'username',
       type: 'input',
@@ -27,7 +27,7 @@ export const askQuestions = async (): Promise<InfoObject> => {
       return username;
     });
 
-  const path: { filepath: string } = await inquirer.prompt({
+  const { filepath } = await inquirer.prompt({
     name: 'filepath',
     type: 'file-tree-selection',
     message: `Please select a JSON file:`,
@@ -40,5 +40,5 @@ export const askQuestions = async (): Promise<InfoObject> => {
     },
   });
 
-  return { username: user.username, filepath: path.filepath };
+  return { username, filepath };
 };

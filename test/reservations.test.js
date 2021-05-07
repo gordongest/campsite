@@ -1,6 +1,6 @@
 const moment = require('moment');
 const testData = require('./testData.json');
-const { mockData, mockSearch, mockReservations } = require('./mocks');
+const { mockSearch, mockReservations } = require('./mocks');
 const { parseDateStrings, conflicts, availableSites } = require('./testMethods');
 
 
@@ -119,9 +119,9 @@ describe('Site Checker', () => {
 
   describe('primary method', () => {
     it('returns an array', () => {
-      const actual = mockData(testData, null, null);
+      const actualSearch = mockSearch(null, null);
 
-      expect(availableSites(actual, 1)).toBeInstanceOf(Array);
+      expect(availableSites(testData, actualSearch, 1)).toBeInstanceOf(Array);
     });
 
     it('returns all sites when no search dates are provided', () => {
