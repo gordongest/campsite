@@ -10,11 +10,15 @@ const boxenOptions = {
   align: 'center',
 };
 
+const figletOptions = { horizontalLayout: 'full' };
+
 export const renderTitle = (): void =>
   console.log(
     chalk.yellow(
       boxen(
-        chalk.green(figlet.textSync('CampSite', { horizontalLayout: 'full' })),
+        chalk.green(
+          figlet.textSync('CampSite', figletOptions)
+        ),
         boxenOptions
       )
     )

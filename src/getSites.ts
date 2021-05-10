@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Spinner } from 'clui';
 import { JSONData } from './interfaces';
-import { askQuestions } from './inquirer';
+import { askQuestions } from './askQuestions';
 import { parseDateStrings } from './parseDateStrings';
 import { SiteChecker } from './SiteChecker';
 import { listSites, logErr } from './listSites';
