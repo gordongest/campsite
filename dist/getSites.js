@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSites = void 0;
 var fs_1 = __importDefault(require("fs"));
 var clui_1 = require("clui");
-var inquirer_1 = require("./inquirer");
+var askQuestions_1 = require("./askQuestions");
 var parseDateStrings_1 = require("./parseDateStrings");
 var SiteChecker_1 = require("./SiteChecker");
 var listSites_1 = require("./listSites");
@@ -51,7 +51,7 @@ var getSites = function () { return __awaiter(void 0, void 0, void 0, function (
     var _a, username, filepath, _b, search, campsites, reservations, searchDates, sites, err_1;
     return __generator(this, function (_c) {
         switch (_c.label) {
-            case 0: return [4 /*yield*/, inquirer_1.askQuestions()];
+            case 0: return [4 /*yield*/, askQuestions_1.askQuestions()];
             case 1:
                 _a = _c.sent(), username = _a.username, filepath = _a.filepath;
                 spinner.start();
